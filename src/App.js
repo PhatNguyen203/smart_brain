@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Navigation from './components/navigation/Navigation';
 import Logo from './components/logo/Logo';
 import ImageLinkForm from './components/imageLink/ImageLinkForm'
@@ -40,16 +40,36 @@ const ParticleOptions = {
   }
 }
 
-function App() {
-  return (
-    <div className="App">
-       <Particles className='particles'
-          params={ParticleOptions} />
-      <Navigation />
-      <Logo />
-      <ImageLinkForm />
-    </div>
-  );
+class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      input: '',
+      imageUrl: ''
+    }
+  }
+  onInputChangeHandler = (event) => {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  btnSubmitButtonHandler = () => {
+    this.setState({
+      imageUrl: this.state.input
+    });
+    console.log(this.state.imageUrl);
+  }
+  render(){
+    return (
+      <div className="App">
+         <Particles className='particles'
+            params={ParticleOptions} />
+        <Navigation />
+        <Logo />
+        <ImageLinkForm onInputChange={this.onInputChangeHandler} onSubmitButton={this.btnSubmitButtonHandler}/>
+      </div>
+    );
+  }
 }
 
 export default App;
