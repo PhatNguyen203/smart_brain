@@ -67,6 +67,11 @@ class App extends Component {
       input: event.target.value
     });
   }
+  displayFaceBox = (box) => {
+    this.setState({
+      box: box
+    });
+  }
   btnSubmitButtonHandler = () => {
     this.setState({
       imageUrl: this.state.input
@@ -74,7 +79,6 @@ class App extends Component {
     app.models
       .predict( Clarifai.FACE_DETECT_MODEL,this.state.input)
       .then(res => {
-        console.log(res.outputs[0].data.regions[0].region_info.bounding_box);
         this.displayFaceBox(this.calculateFaceLocation(res));
       })
       .catch(err => console.log(err));
@@ -91,13 +95,9 @@ class App extends Component {
       bottomRow: height - (face.bottom_row * height)
     }
   }
-  displayFaceBox = (box) => {
-    this.setState({
-      box: box
-    });
-    console.log(this.state.box);
-  }
+
   render(){
+    const {imageUrl, box} = this.state;
     return (
       <div className="App">
          <Particles className='particles'
@@ -105,7 +105,7 @@ class App extends Component {
         <Navigation />
         <Logo />
         <ImageLinkForm onInputChange={this.onInputChangeHandler} onSubmitButton={this.btnSubmitButtonHandler}/>
-        <FaceRecognition imageUrl={this.state.imageUrl} box={this.state.box} />
+        <FaceRecognition imageUrl={imageUrl} box={box} />
       </div>
     );
   }
