@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Navigation from './components/navigation/Navigation';
 import Logo from './components/logo/Logo';
-import ImageLinkForm from './components/imageLink/ImageLinkForm'
-import Particles from 'react-particles-js'
+import ImageLinkForm from './components/imageLink/ImageLinkForm';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import Particles from 'react-particles-js';
 import './App.css';
 
 const ParticleOptions = {
@@ -46,8 +47,9 @@ class App extends Component {
     this.state = {
       input: '',
       imageUrl: ''
-    }
-  }
+    };
+  };
+
   onInputChangeHandler = (event) => {
     this.setState({
       input: event.target.value
@@ -57,8 +59,8 @@ class App extends Component {
     this.setState({
       imageUrl: this.state.input
     });
-    console.log(this.state.imageUrl);
-  }
+  };
+
   render(){
     return (
       <div className="App">
@@ -67,6 +69,7 @@ class App extends Component {
         <Navigation />
         <Logo />
         <ImageLinkForm onInputChange={this.onInputChangeHandler} onSubmitButton={this.btnSubmitButtonHandler}/>
+        <FaceRecognition imageUrl={this.state.imageUrl}/>
       </div>
     );
   }
