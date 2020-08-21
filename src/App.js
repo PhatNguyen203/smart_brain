@@ -3,7 +3,8 @@ import Navigation from './components/navigation/Navigation';
 import Logo from './components/logo/Logo';
 import ImageLinkForm from './components/imageLink/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-import Signin from './components/signin/Signin'
+import Signin from './components/signin/Signin';
+import Register from './components/register/Register';
 import Particles from 'react-particles-js';
 import './App.css';
 import Clarifai from 'clarifai';
@@ -54,6 +55,7 @@ class App extends Component {
       imageUrl: '',
       box: {},
       route: 'signin',
+      isSignined: false,
       user: {
         id: '',
         name: '',
@@ -109,11 +111,11 @@ class App extends Component {
       <div className="App">
          <Particles className='particles'
             params={ParticleOptions} />
-        <Navigation />
-        <Logo />
+        <Navigation onRouteChange = {this.onRouteChange} />
         {
           route === 'home'
           ?<div>
+            <Logo />
             <ImageLinkForm 
               onInputChange={this.onInputChangeHandler} 
               onSubmitButton={this.btnSubmitButtonHandler}
@@ -123,7 +125,11 @@ class App extends Component {
               box={box} 
             />
           </div>
-          :<Signin onRouteChange={this.onRouteChange} />
+          :(
+            route === 'signin'
+            ?<Signin onRouteChange={this.onRouteChange} />
+            :<Register onRouteChange = {this.onRouteChange} />
+          )
         }
         
       
