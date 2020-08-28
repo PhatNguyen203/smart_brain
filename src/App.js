@@ -95,6 +95,17 @@ class App extends Component {
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then((res) => {
+        fetch("http://localhost:5000/image", {
+          method: "put",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: this.state.user.id,
+          }),
+        })
+          .then((res) => res.json())
+          .then((count) => {
+            this.setState(Object.assign(this.state.user, { entries: count }));
+          });
         this.displayFaceBox(this.calculateFaceLocation(res));
       })
       .catch((err) => console.log(err));
