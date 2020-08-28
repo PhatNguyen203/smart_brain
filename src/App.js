@@ -5,6 +5,7 @@ import ImageLinkForm from "./components/imageLink/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Signin from "./components/signin/Signin";
 import Register from "./components/register/Register";
+import Rank from "./components/rank/Rank";
 import Particles from "react-particles-js";
 import "./App.css";
 import Clarifai from "clarifai";
@@ -122,7 +123,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageUrl, box, route, isSignedIn } = this.state;
+    const { imageUrl, box, route, isSignedIn, user } = this.state;
     return (
       <div className='App'>
         <Particles className='particles' params={ParticleOptions} />
@@ -133,6 +134,7 @@ class App extends Component {
         {route === "home" ? (
           <div>
             <Logo />
+            <Rank username={user.name} rank={user.entries} />
             <ImageLinkForm
               onInputChange={this.onInputChangeHandler}
               onSubmitButton={this.btnSubmitButtonHandler}
